@@ -1,0 +1,209 @@
+<template>
+    <v-content>
+        <v-container fluid>
+            <v-layout row wrap>
+                <v-flex xs12 sm12>
+                    <v-tabs v-model="active" color="primary" dark slider-color="blue lighten-5">
+                        <v-tab v-for="tabData in tabDatas" :key="tabData.title" ripple>
+                            {{tabData.title}}
+                        </v-tab>
+                        <v-tab-item v-for="tabData in tabDatas" :key="tabData.title">
+                            <v-card flat>
+                                <v-card-text dark color="blue lighten-1">
+                                    {{ tabData.desc }}
+                                    <v-data-table colspan="100%" :headers="billHeaders" :items="tabData.bills,tabData" hide-actions class="elevation-1">
+                                        
+                                        <template slot="items" slot-scope="props">
+                                        <td>{{ props.item.slNo }}</td>
+                                        <td class="text-xs-right">{{ props.item.date }}</td>
+                                        <td class="text-xs-right">{{ props.item.billNo }}</td>
+                                        <td class="text-xs-right">{{ props.item.amount }}</td>
+                                        <td class="text-xs-right">{{ props.item.remarks }}</td>
+                                        <td class="text-xs-right">
+                                            <v-btn class="mr-0">
+                                                <v-icon style="vertical-align:middle">get_app</v-icon>{{ props.item.attachment }}
+                                            </v-btn>
+                                        </td>
+                                        </template>
+                                        <template slot="footer">
+                                            <td colspan="100%" class="sub-total-footer-td blue lighten-1">
+                                                <div class="sub-total-text title"><strong>{{tabData.subTotal.text}}</strong></div>
+                                                <div class="sub-total-amt title blue darken-4"><strong><span>&#8377;</span>{{tabData.subTotal.amount}}</strong></div>
+                                            </td>
+                                        </template>
+                                    </v-data-table>
+                                </v-card-text>
+                            </v-card>
+                        </v-tab-item>
+                    </v-tabs>
+                    <!-- <div class="text-xs-center mt-3">
+                        <v-btn @click="next">next tab</v-btn>
+                    </div> -->
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-content>
+</template>
+<script>
+    export default {
+        data () {
+            return {
+                active: null,
+                tabDatas:[
+                    {desc:'pertol Bills description',title:'pertol',
+                        bills: [
+                            {
+                                value: false,
+                                slNo:'1',
+                                billNo:'#1253-petrol',
+                                date:'25/07/2018',
+                                amount:'2500',
+                                remarks:'no remarks',
+                                attachment:'download',
+                            },
+                            {
+                                value: false,
+                                slNo:'2',
+                                billNo:'#1254',
+                                date:'26/07/2018',
+                                amount:'3500',
+                                remarks:'no remarks yet',
+                                attachment:'download'
+                            }                       
+                        ],
+                        subTotal:[
+                            {text:'Sub Total',amount:'1523'}
+                        ]
+                    },
+                    {desc:'Entertain Bills description',title:'Entertain',
+                        bills: [
+                            {
+                                value: false,
+                                slNo:'1',
+                                billNo:'#1253-entertain',
+                                date:'25/07/2018',
+                                amount:'2500',
+                                remarks:'no remarks',
+                                attachment:'download',
+                            },
+                            {
+                                value: false,
+                                slNo:'2',
+                                billNo:'#1254',
+                                date:'26/07/2018',
+                                amount:'3500',
+                                remarks:'no remarks yet',
+                                attachment:'download'
+                            }                          
+                        ],
+                        subTotal:[
+                            {text:'Sub Total',amount:'2623'}
+                        ]
+                    },
+                    {desc:'uniform Bills description',title:'uniform',
+                        bills: [
+                            {
+                                value: false,
+                                slNo:'1',
+                                billNo:'#1253-uniform',
+                                date:'25/07/2018',
+                                amount:'2500',
+                                remarks:'no remarks',
+                                attachment:'download',
+                            },
+                            {
+                                value: false,
+                                slNo:'2',
+                                billNo:'#1254',
+                                date:'26/07/2018',
+                                amount:'3500',
+                                remarks:'no remarks yet',
+                                attachment:'download'
+                            }                      
+                        ],
+                        subTotal:[
+                            {text:'Sub Total',amount:'3923'}
+                        ]
+                    },
+                    {desc:'Vehicle Bills description',title:'Vehicle',
+                        bills: [
+                            {
+                                value: false,
+                                slNo:'1',
+                                billNo:'#1253-vehicle',
+                                date:'25/07/2018',
+                                amount:'2500',
+                                remarks:'no remarks',
+                                attachment:'download',
+                            },
+                            {
+                                value: false,
+                                slNo:'2',
+                                billNo:'#1254',
+                                date:'26/07/2018',
+                                amount:'3500',
+                                remarks:'no remarks yet',
+                                attachment:'download'
+                            }                          
+                        ],
+                        subTotal:[
+                            {text:'Sub Total',amount:'4723'}
+                        ]
+                    },
+                    {desc:'Mobile Bills description',title:'Mobile',
+                        bills: [
+                            {
+                                value: false,
+                                slNo:'1',
+                                billNo:'#1253-mob',
+                                date:'25/07/2018',
+                                amount:'2500',
+                                remarks:'no remarks',
+                                attachment:'download',
+                            },
+                            {
+                                value: false,
+                                slNo:'2',
+                                billNo:'#1254',
+                                date:'26/07/2018',
+                                amount:'3500',
+                                remarks:'no remarks yet',
+                                attachment:'download'
+                            }                       
+                        ],
+                        subTotal:[
+                            {text:'Sub Total',amount:'5023'}
+                        ]
+                    },    
+                ],
+                billHeaders: [
+                    {text: 'Sl.No',align: 'left',sortable: false,value: 'slNo'},
+                    {text: 'Bill Number', align: 'right',sortable: false,value: 'billNumber' },
+                    {text: 'Date',align: 'right',sortable: false, value: 'date' },
+                    {text: 'Amount',align: 'right',sortable: false, value: 'amount' },
+                    {text: 'Remarks',align: 'right',sortable: false, value: 'remarks' },
+                    {text: 'attachment', align: 'right',sortable: false, value: 'attachment' }
+                ],
+                footer:[
+                    {text:'Sub Total',amount:'5500'},
+                    {text:'Sub Total',amount:'6500'},
+                    {text:'Sub Total',amount:'7500'},
+                    {text:'Sub Total',amount:'8500'},
+                    {text:'Sub Total',amount:'9500'}
+                ]
+                
+            }
+        },
+        methods: {
+            // next () {
+            //     const active = parseInt(this.active)
+            //     this.active = (active < (this.tabDatas.length -1) ? active + 1 : 0)
+            // }
+        }
+    }
+</script>
+<style scoped>
+    .sub-total-footer-td{padding:0;height: 100%;}
+    .sub-total-text{float: left;width:calc(100% - 200px);color:#fff;padding:20px 24px;}
+    .sub-total-amt{float: right;width: 200px;text-align: right;color:#fff;padding:20px 24px;}
+</style>
