@@ -245,7 +245,7 @@ export const store = new Vuex.Store({
                 remarks: payload.remarks,
                 attachment: payload.attachment,
             }
-            firebase.database().ref('tabDatas').push(billData)
+            firebase.database().ref('tabDatas').push({ bills: billData})
                 .then((data) =>{
                     const key = data.key
                     console.log(data)
